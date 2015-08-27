@@ -328,3 +328,18 @@ This is an example of code for new animation that you can add everywhere in you 
 
 
 ## Assets/Fonts/Images
+Fonts, images, videos and other assets can be placed in `/src/assets/` folder.
+This is the structure:
+
+```
+.
+└── src
+    └── assets
+        ├── images            // images
+        ├── videos            // videos and media
+        ├── fonts             // ttf, eot and other fonts
+        └── phonegap          // icons and splash screen for cordova/phonegap
+
+```
+
+Assets are atuomatically moved by Grunt to bin and build folders during compiling.
