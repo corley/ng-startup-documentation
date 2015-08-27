@@ -43,7 +43,7 @@ You can destroy the whole session with purge method:
 
 Please read official [documentation](https://github.com/ngutils/cr-session) for crSession.
 
-## ACL
+## Access Control List
 crAcl lets you to define roles and rules around you routes. It works with events triggered by $state during route changes.
 
 If the ACL role is not respected, the client is redirected to a customizable url.
@@ -149,3 +149,6 @@ In order to destroy the identity, void the role and data store in the session, y
 crIdentity will void the identity and will trigger the 'auth:purge:success' event letting you to add your login after the purge.
 
 Please read official [documentation](https://github.com/ngutils/cr-identity) for crIdentity.
+
+
+## Authentication

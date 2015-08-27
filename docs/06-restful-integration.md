@@ -1,4 +1,4 @@
-# REST integration
+# REST resources
 
 ## $http
 Of course you can use $http, a module by Angular to make HTTP calls to a specific endpoint.
