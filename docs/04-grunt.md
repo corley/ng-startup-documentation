@@ -1,8 +1,9 @@
 # Grunt
+
 [Grunt](http://gruntjs.com) is a node tasks manager that help you to configure and reuse your application flow.
 
-## Task
-This is a list of more important task that we use in ng-startup.
+## Tasks
+This is a list of the major tasks available ngStartup.
 
 ```bash
 grunt appconf

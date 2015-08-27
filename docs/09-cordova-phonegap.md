@@ -1,4 +1,4 @@
-# Cordava/Phonegap integration
+# Cordova/Phonegap integration
 
 ## Config.xml
 

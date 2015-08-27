@@ -227,6 +227,103 @@ You can edit the class of the <span element that will be injected into the butto
 Please read official [documentation](https://github.com/ngutils/cr-loading) for crLoading usage.
 
 ## Animations
+ngStartup defines in `/src/less/base.less` some classes that you can use in your views to activate animations during route changes and ng-repeat, ng-show and ng-hide events.
+
+### Example
+For **fading** animations:
+
+``` html
+<!-- in your views -->
+<p ng-repeat="article in articles" class="fading-item">{{ article.title }}</p>
+
+<!-- in /src/index.html -->
+<div ui-view="main" class="fading-view" ></div>
+```
+
+For **slide-out** animations
+
+``` html
+<!-- in your views -->
+<p ng-repeat="article in articles" class="sliding-item">{{ article.title }}</p>
+
+<!-- in /src/index.html -->
+<div ui-view="main" class="sliding-view" ></div>
+```
+
+### Add yours:
+This is an example of code for new animation that you can add everywhere in you less/sass files.
+
+``` css
+/** fading animation, just add fading-item to ng-repeat and ng-show items */
+.fading-item.ng-enter, .fading-item.ng-move {
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+
+.fading-item.ng-enter.ng-enter-active,
+.fading-item.ng-move.ng-move-active {
+  opacity:1;
+}
+
+
+.fading-item.ng-leave {
+  -webkit-animation:0.5s fading_animation;
+  -moz-animation:0.5s fading_animation;
+  -o-animation:0.5s fading_animation;
+  animation:0.5s fading_animation;
+}
+
+@keyframes fading_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-webkit-keyframes fading_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-moz-keyframes fading_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-o-keyframes fading_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+
+/** view animation when route changes (fading animation, to activate add fading-view to ui-vide div) */
+[ui-view].ng-enter.fading-view {
+  -webkit-transition:0.2s linear all;
+  -moz-transition:0.2s linear all;
+  -o-transition:0.2s linear all;
+  transition:0.2s linear all;
+  opacity:0;
+}
+
+[ui-view].ng-enter.fading-view {
+  opacity: 0;
+}
+
+[ui-view].ng-enter-active.fading-view {
+  opacity: 1;
+}
+
+[ui-view].ng-leave.fading-view {
+  opacity: 0;
+}
+
+[ui-view].ng-leave-active.fading-view {
+  opacity: 0;
+}
+```
+
 
 
 
