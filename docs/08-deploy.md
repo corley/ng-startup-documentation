@@ -40,7 +40,19 @@ Same stuff for `bin/assets/ng-startup-0.0.2.js`, it contains all javascript file
 `0.0.2` is the current version of your application, this value is stored into the `package.json` underd the key `version`.
 
 ## S3
+[S3](https://aws.amazon.com/s3/?nc1=h_ls) provides developers and IT teams with secure, durable, highly-scalable object storage. Amazon S3 is easy to use, with a simple web services interface to store and retrieve any amount of data from anywhere on the web.
 ```
 grunt s3
 ```
 If a task that push bin directory into an AWS s3 bucket. You can configure it into the `configuration.json` file.
+
+```
+{
+  "aws": {
+      "accessKeyId":  "your-api-key",
+      "secretAccessKey": "your-secret-key",
+      "bucket": "ngstartup-bucket",
+      "region": "eu-west-1" // Ireland
+  }
+}
+```
