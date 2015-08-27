@@ -10,13 +10,16 @@ Npm is a node package manager, package.json contains metadata of this package an
 ```bash
 npm install
 ```
-[Bower](http://bower.io) is a package manager, ngStartup uses it download its front end dependencies. 
+[Bower](http://bower.io) is a package manager, ngStartup uses it download its front end dependencies.
 Bower.json contains metadata and requirments for your application. `install` command is already run after npm install but it supports few other commands.
 In first this command updates your bower dependencies.
 
 ```bash
 bower update
 ```
+
+> asdsadasdsad
+> dsadasd
 
 ## Getting Started
 
