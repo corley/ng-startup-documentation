@@ -69,7 +69,7 @@ ngStartup set the en_EN as default language getting it by the app configuration.
 }])
 ```
 
-## The language file and usage
+### Language files and usage
 Here an example of a translation file as `/src/i18n/en_EN.json`:
 ```
 {

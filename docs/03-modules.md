@@ -26,7 +26,7 @@ For example, to create a module that manages controllers and views for the home 
 ```
 
 
-## Add your own modules
+## How to create a module
 
 When you add a new module, probably you would to define controllers, filters and services related to it.
 About **controllers** you can define the routing rules inside the module. In this way your module will be easily injeactable in your app without editing external files (exp the app configuration).
