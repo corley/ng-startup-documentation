@@ -98,6 +98,17 @@ grunt shell:androidLog
 This command tail android device log if it is connected at PC
 
 ## Assets/Fonts/Images/Icons
+```
+ng-startup/src/assets/phonegap
+.
+├── icon                // incons directory
+│   └── android         // specific for android
+├── icon.png
+└── screen              // splashscreen directory
+    ├── android         // specific for android
+    ├── ios             // specific for ios
+    └── splash.png
+```
 `src/assets/phonegap` contains a lot of images, splashscreen and assets about your mobile application, they are the default phonegap assets, you can change them to customize your application.
 
 ## Dependencies

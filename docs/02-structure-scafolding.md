@@ -8,23 +8,22 @@
 ├── configuration.json.dist         // Template for your external config
 ├── config.xml                      // Cordova configuration
 ├── Gruntfile.js                    // Grunt configuration file
-├── karma
-│   └── karma-unit.tpl.js
-├── LICENSE
+├── karma                           // karma configuration
+│   └── karma-unit.tpl.js           // karma configuration template
+├── LICENSE                         // license
 ├── module.prefix                   // Wrapper of compiled application
 ├── module.suffix                   // Wrapper of compiled application
 ├── package.json                    // npm metadata
-├── README.md
+├── README.md                       // presentation file
 ├── src                             // source of your application
 │   ├── app                         // app module
-│   ├── assets
+│   ├── assets                      // images, video, icon..
 │   ├── i18n                        // translations
 │   ├── index.html                  // entry point
 │   ├── less                        // less files
-│   ├── README.md
 │   └── sass                        // sass files
 └── tpl                             // templates directory
-    └── conf.tpl.js
+    └── conf.tpl.js                 // configuration template, grunt use it to create your custom conf.js file
 ```
 
 ## Package.json
