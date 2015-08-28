@@ -18,26 +18,25 @@ SASS and LESS files are compiled and they are concat and minify with all other C
 ```
 bin/
 ├── assets
-│   ├── FontAwesome.otf
-│   ├── fontawesome-webfont.eot
-│   ├── fontawesome-webfont.svg
-│   ├── fontawesome-webfont.ttf
-│   ├── fontawesome-webfont.woff
-│   ├── fontawesome-webfont.woff2
-│   ├── fonts
-│   ├── ng-startup-0.0.2.css
-│   ├── ng-startup-0.0.2.js
-│   ├── phonegap
-│   └── README.md
-├── i18n
+│   ├── fonts                   // fonts directory
+│   ├── images                  // images direcotry
+│   ├── ng-startup-0.0.2.css    // minified, concat and compressed css
+│   ├── ng-startup-0.0.2.js     // minified, concat and compressed js
+│   ├── phonegap                // phonegap assets
+│   └── README.md               // Description file
+├── i18n                        // translation
 │   └── en_EN.json
-└── index.html
+└── index.html                  // entry point
 ```
 This is an example of code ready to production. 
 `bin/assets/ng-startup-0.0.2.css` is the result of compression and concat of all your style files.  
 Same stuff for `bin/assets/ng-startup-0.0.2.js`, it contains all javascript files compiled and minified.
 
 `0.0.2` is the current version of your application, this value is stored into the `package.json` underd the key `version`.
+
+## Application loader
+`build.config.js` contains the description of files to load in your application, you can add bower dependencies, different path for your javascript and a lot of other customization.
+It manage also phonegap assets, you can decide to load a particular css only for phonegap or only for web version.
 
 ## S3
 [S3](https://aws.amazon.com/s3/?nc1=h_ls) provides developers and IT teams with secure, durable, highly-scalable object storage. Amazon S3 is easy to use, with a simple web services interface to store and retrieve any amount of data from anywhere on the web.
