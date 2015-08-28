@@ -152,3 +152,22 @@ Please read official [documentation](https://github.com/ngutils/cr-identity) for
 
 
 ## Authentication
+> [Satelizer](https://github.com/sahat/satellizer) is a simple to use, end-to-end, token-based authentication module for AngularJS with built-in 
+> support for Google, Facebook, LinkedIn, Twitter, Yahoo, Windows Live authentication providers, as well as Email and Password sign-in. 
+> You are not limited to the sign-in options above, in fact you can add any OAuth 1.0 or OAuth 2.0 provider by passing provider-specific information during the configuration step.
+
+In our opinion this is a very good library and it is very easy to use into ngstartup, we describe it here because is a good way to write a login feature and with an easy integration
+ with cr-identity the authentication flow is easy to write..
+
+```
+angular.module('MyApp')
+  .controller('LoginCtrl', function($scope, $rootScope, $auth) {
+
+    $scope.authenticate = function(provider) {
+      $auth.authenticate(provider).then(function(response) {
+        $rootScope.$broadcast('auth:identity:success', {});
+      });
+    };
+
+});
+```
