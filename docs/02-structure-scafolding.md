@@ -1,5 +1,8 @@
 # App structure and config
 
+![foldering](http://ngstartup.corleycloud.com/assets/images/ngstartup02.png)
+
+
 ## Foldering
 ```
 .
@@ -31,29 +34,6 @@
 
 ## App configuration
 
-
-## How to develop with ngStartup
-Developement environment works into the `build` directory. This is generated for web environment by
-```
-grunt web-eployee
-```
-For cordova by
-```
-grunt phonegapBuild
-```
-And it is called during watch process every file update.
-The code in this directory is debuggable becuase it is not concat, compress or minified.
-
-## How to relese for production
-Prodcution enviroment works inside `bin` directory it is generated for web environment from grunt
-```
-grunt compile
-```
-
-For cordova by
-```
-grunt phonegapCompile
-```
 
 The code generated is optimized for production:
 * every js are minified and concat in only one file

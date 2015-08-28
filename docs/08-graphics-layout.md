@@ -328,6 +328,10 @@ This is an example of code for new animation that you can add everywhere in you 
 
 
 ## Assets/Fonts/Images
+
+
+![assets](http://ngstartup.corleycloud.com/assets/images/ngstartup08.png)
+
 Fonts, images, videos and other assets can be placed in `/src/assets/` folder.
 This is the structure:
 

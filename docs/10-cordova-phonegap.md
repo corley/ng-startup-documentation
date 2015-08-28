@@ -80,11 +80,15 @@ grunt phonegapBuild
 ```
 You this command to build a development version of your mobile app, it creates a `build` directory with your codebase.
 
+
+
 ```bash
 grunt phonegapCompile
 ```
 You this command to build a production version of your mobile app, it creates a `dir` directory with your codebase.
 The code is minified, compiled and concat. It is ready to go in production.
+
+![phonegap](http://ngstartup.corleycloud.com/assets/images/ngstartup10.png)
 
 Both build and compile::
 

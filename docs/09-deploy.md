@@ -2,11 +2,14 @@
 
 ngStartup follows all step of your development, the deploy is tha last important task to move your code in production.
 
+![compiling](http://ngstartup.corleycloud.com/assets/images/ngstartup09.png)
+
+
 ## Prepare for production
 ```bash
 grunt compile
 ```
-This command prepares `bin` directory, it contains your code ready to go in production. It is 
+This command prepares `bin` directory, it contains your code ready to go in production. It is
 
 Javascript files are
 * concat
@@ -28,15 +31,11 @@ bin/
 │   └── en_EN.json
 └── index.html                  // entry point
 ```
-This is an example of code ready to production. 
+This is an example of code ready to production.
 `bin/assets/ng-startup-0.0.2.css` is the result of compression and concat of all your style files.  
 Same stuff for `bin/assets/ng-startup-0.0.2.js`, it contains all javascript files compiled and minified.
 
-`0.0.2` is the current version of your application, this value is stored into the `package.json` underd the key `version`.
-
-## Application loader
-`build.config.js` contains the description of files to load in your application, you can add bower dependencies, different path for your javascript and a lot of other customization.
-It manage also phonegap assets, you can decide to load a particular css only for phonegap or only for web version.
+`0.0.2` is the current version of your application, this value is stored into the `package.json` under the key `version`.
 
 ## S3
 [S3](https://aws.amazon.com/s3/?nc1=h_ls) provides developers and IT teams with secure, durable, highly-scalable object storage. Amazon S3 is easy to use, with a simple web services interface to store and retrieve any amount of data from anywhere on the web.
