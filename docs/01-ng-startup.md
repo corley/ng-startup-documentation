@@ -1,5 +1,7 @@
 # ngStartup
 
+![intro](http://127.0.0.1:8081/assets/images/ngstartup01.png)
+
 ## Installation
 You can clone [ng-startup repository](https://github.com/corley/ng-startup) from github
 ```bash
