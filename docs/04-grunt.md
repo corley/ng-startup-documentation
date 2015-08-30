@@ -5,45 +5,38 @@
 
 [Grunt](http://gruntjs.com) is a node tasks manager that help you to configure and reuse your application flow.
 
-This is a list of the major tasks available ngStartup.
+The first command that you have to know is:
 
-```bash
-grunt appconf
-```
-This command reads `configuration.json` and creates `src/config.js` by `tpl/conf.tpl.js` template.
 
 ```bash
 grunt watch
 ```
+
+This command will compile your `src/` creating a version that you can visit on `http://127.0.0.1:8081`, then will wail for any change to codes in `src/` rebuilding again the app when you edit your files. **Launch this command when you are coding**.
+
 ![watching](http://ngstartup.corleycloud.com/assets/images/ngstartup04.png)
 
 
-This command build your application in development mode, create webserver (port 8081) and it expects a file update to re-build your app and refresh browser page.
-
-```bash
-grunt web-employee
-```
-This command build your application in development mode.
+Another important command is
 
 ```bash
 grunt compile
 ```
-This command prepare your code for production environment: minify, concat files ...
 
-```bash
-grunt bump:major // minor or patch
-```
-This command increase package.json version key of one major/minor/patch release. **The version is used for names of compiled css and js files**.
-Example:
+It compile your `src/` creating a version ready for production, with js and css files minified an compressed, and with angular html templates injected in the app in order to enhance the performance. Then start a server (as the watch command) and you can visit you compiled app visiting `http://127.0.0.1:8081`.
 
+### All commands
 
-```
-Start  | Command          | End  |
--------| ---------------- | -------------
-0.1.0  | grunt bump:major | 1.0.0
-0.1.0  | grunt bump:minor | 0.2.0
-0.1.0  | grunt bump:path  | 0.1.1
-```
+Command               | Description
+----------------------| ----------------
+watch           | create the app (not minified and compressed) in the `compile/build/web/` folder, then start the server and watch for any changes to the code
+build           | the same of the wathc command, but doesn't start the server and doesn't watch code changes
+compile         | create the app (minified an compressed) in the `compile/compile/web/` folder, then start the server
+phonegapBuild   | create the app (not minified and compressed) in the `compile/build/mobile/` folder, then push the code to phonegap, wait for building process, then download the app and install it on device (is connected on usb)
+phonegapCompile   | create the app (minified and compressed) in the `compile/compile/mobile/` folder, then push the code to phonegap, wait for building process, then download the app and install it on device (is connected on usb)
+bump:patch      | edit the package.json increasing the app version, for example from `0.1.0` to `0.1.1`
+bump:minor      | edit the package.json increasing the app version, for example from `0.1.0` to `0.2.0`
+bump:major      | edit the package.json increasing the app version, for example from `0.1.0` to `1.0.0`
 
 
 Plase read official [documentation](https://github.com/vojtajina/grunt-bump) for GruntJS.
