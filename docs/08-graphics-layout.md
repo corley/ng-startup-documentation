@@ -1,5 +1,9 @@
 # Graphics and layout
 
+## Introduction
+
+ngStartup help you to create modern and responsive web and mobile apps. To do that, it includes some external libraries and tools, from Bootstrap to Font Awesome, to stunning Loading bars to scripting tools such as Less and Saas. Configure and use what's the best for you.
+
 ## Bootstrap and Font Awesome
 ngStartup uses [Bootstrap 3.x](http://getbootstrap.com/) and [Font Awesome 4.x](https://fortawesome.github.io/Font-Awesome/) to let you to create high quality and responsive web applications. Of course, if you prefer, you can remove this dependencies from `bower.json` and you app.
 

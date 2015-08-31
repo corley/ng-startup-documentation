@@ -1,5 +1,7 @@
 # Analytics and translations
 
+## Introduction
+
 ngStartup includes [angularytics](https://github.com/mgonto/angularytics), and [angular-translate](https://github.com/angular-translate/angular-translate) in order to help you with stats management and app localization.
 
 This modules let you to

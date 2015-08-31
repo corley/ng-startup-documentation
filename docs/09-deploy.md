@@ -1,6 +1,8 @@
 # Deploy
 
-ngStartup follows all step of your development, the deploy is tha last important task to move your code in production.
+## Introduction
+
+ngStartup follows all steps of your development, the deploy is the last important task to move your code in production.
 
 ![compiling](http://ngstartup.corleycloud.com/assets/images/ngstartup09.png)
 

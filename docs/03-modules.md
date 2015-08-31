@@ -1,5 +1,7 @@
 # Modules
 
+## Introduction
+
 In ngStartup you can easily add your code into your application. The structure & foldering help you to easily define **independent e reusable modules**.
 
 ![module](http://ngstartup.corleycloud.com/assets/images/ngstartup03.png)

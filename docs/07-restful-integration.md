@@ -1,5 +1,9 @@
 # REST resources
 
+## Introduction
+
+Web and mobile apps usually work with remote resources (webservices and REST endpoints). Angular give you some great tool make http calls, but we have add other modules so you can choos ethe best for you.
+
 ## $http
 Of course you can use $http, a module by Angular to make HTTP calls to a specific endpoint.
 
