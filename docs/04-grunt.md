@@ -48,7 +48,7 @@ bump:major      | edit the package.json increasing the app version, for example 
 
 Plase read official [documentation](https://github.com/vojtajina/grunt-bump) for GruntJS.
 
-> Grunt helps you to write better code, notifyng when you do js syntax error or wrong practices that could affect the minification of the app.
+> Grunt helps you to write better code, notifiyng when you do js syntax error or wrong practices that could affect the minification of the app.
 
 
 ### List of Grunt dependencies
@@ -80,7 +80,7 @@ grunt.loadNpmTasks('grunt-http-server');
 Bower.json contains metadata and requirements for your application. `install` command is already run after npm install but it supports few other commands.
 In first this command updates your bower dependencies.
 
-> You can think at 2 different groups of sources in the app: a part from `/src` (your sources) and a part from `/bower_components`  (external libraries) downloaded by bower
+> You can think at 2 different groups of sources in the app: a part from `/src` (your sources) and a part from `/bower_components`  (external libraries) downloaded by Bower
 
 ### Add a new dependency
 
@@ -102,7 +102,8 @@ bower update
 ```
 
 It will download the package in the `/bower_components` folder.
-The last step is choose which css and js files you want to import into the app, editing the `build.config.js` file.
+**The last step is choose which css and js files you want to import into the app**, editing the `build.config.js` file.
+
 The `/config/build.config.js` contains the description of files to load in your application, you can add bower dependencies, different path for your javascript and a lot of other customization.
 It manage also phonegap assets, you can decide to load a particular css only for phonegap or only for web version:
 

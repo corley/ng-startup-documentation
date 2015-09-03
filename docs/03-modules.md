@@ -2,9 +2,8 @@
 
 ## Introduction
 
-In ngStartup you can easily add your code into your application. The structure & foldering help you to easily define **independent e reusable modules**.
+In ngStartup you can easily add your code into your application. The app structure helps you to easily define **independent e reusable modules**.
 
-![module](http://ngstartup.corleycloud.com/assets/images/ngstartup03.png)
 
 
 ## Module structure
@@ -30,8 +29,16 @@ For example, to create a module that manages controllers and views for the home 
             └── home.spec.js  //  tests for this module
 ```
 
+The following inforpgrahic shows better the structure of a module:
+
+![module](http://ngstartup.corleycloud.com/assets/images/ngstartup03.png)
 
 ## How to create a module
+
+You can place your modules in two different folders:
+
+* `/src/app` for main modules with a specific logic and goal (exp: a module to manage news)
+* `/src/common` for reusable modules, (exp: layout components, modules rich of directives)
 
 When you add a new module, probably you would to define controllers, filters and services related to it.
 About **controllers** you can define the routing rules inside the module. In this way your module will be easily injeactable in your app without editing external files (exp the app configuration).
@@ -87,11 +94,85 @@ angular.module(
     // other dependencies
 ```
 
-### Routing definition
-In the example above we define in the `.config` the ruls for the routing. In this way all calls to `/home` will be managed by the HomeCtrl with the view homte.tpl.html, and all urls like `/page/about-us` will be managed by PageCtrl with the vide page.tpl.html.
 
 
 ### Layout views
+## Routing
+In the example above we defined in the `.config` the rules for routing. In this way all calls to `/home` will be managed by the HomeCtrl with the view homte.tpl.html, and all urls like `/page/about-us` will be managed by PageCtrl with the vide page.tpl.html. Thanks to [ui-router](http://angular-ui.github.io/ui-router/site/) you can set your routes in a simple way. You have to define a state (such a name for the route) that must be unique in the app. When you create your module, remember that you can set different states with route associated that will join a controller and his view:
+
+``` javascript
+//...
+.config(function config( $stateProvider ) {
+
+  //will match #/search url
+  $stateProvider.state( 'search', {
+    url: '/search',
+    views: {
+      "main": {
+        controller: 'SearchHomeCtrl',
+        templateUrl: 'search/home.tpl.html'
+    },
+    data:{ pageTitle: 'Home' }
+  });
+
+  //will match url like #/search?q=google
+  $stateProvider.state( 'search.results', {
+    url: '/search?q',
+    views: {
+      "main": {
+        controller: 'SearchResultsCtrl',
+        templateUrl: 'search/results.tpl.html'
+    },
+    data:{ pageTitle: 'Results' }
+  });
+
+  //will match url like #/search/archive/123
+  $stateProvider.state( 'search.archive', {
+    url: '/search/archive/:id',
+    views: {
+      "main": {
+        controller: 'SearchArchiveCtrl',
+        templateUrl: 'search/archive.tpl.html'
+    },
+    data:{ pageTitle: 'Old search' }
+  });
+})
+```
+
+When you pass params to the controller, you should inject $stateParams and $state to manage data and redirect to states.
+
+``` javascript
+.controller('SearchArchiveCtrl', ['$scope', '$state', '$stateParams', function($scope, $state, $stateParams) {
+
+  console.log($state.params.id); // 123
+  console.log( $stateParams.id); // 123
+    if( $stateParams.id == 100) {
+    $state.go('search');
+    // redirect to state 'search' (url #/search)
+  }
+  else {
+    $state.go('search.archive', {'id': '100'});
+    // redirect to state 'search.archive' with id 100 (url #/search/arcive/100)
+  }
+
+})
+
+```
+
+
+## Views and layouts
+
+### Views
+
+As wrote above, angular will match an url joining the correct controller and view. A view is just an html template with own $scope:
+
+``` html
+<div>
+    <p>Hello {{ name }}</p>
+</div>
+```
+
+The result will be compiled in the DOM of the index.html, showing the result on the browser of your visitors.
 The `main` key is related to the directive `ui-view` in `/src/index.html`:
 
 ``` html
@@ -101,6 +182,8 @@ The `main` key is related to the directive `ui-view` in `/src/index.html`:
     </div>
 </body>
 ```
+
+### Multi-views
 
 To use a double-column layout, you have to do something like that:
 
@@ -114,7 +197,7 @@ To use a double-column layout, you have to do something like that:
 </body>
 ```
 
-and in your modules something like this:
+and in your modules:
 
 ``` javascript
 //...
@@ -136,17 +219,7 @@ and in your modules something like this:
 })
 ```
 
-## Views and layouts
 
-### Views
-
-As wrote above, you can add several views that will be used by controllers and directives of its module (or by external modules if you prefer). A view is just an html template with own $scope:
-
-``` html
-<div>
-    <p>Hello {{ name }}</p>
-</div>
-```
 
 ### Less & Sass
 

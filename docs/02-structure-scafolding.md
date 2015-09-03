@@ -19,14 +19,14 @@ This is the structure of ngStartup:
 └── src                             # source of your application: you code here
 ```
 
-As you can see the original project (befor installation) has just `/src` and /`config` folders. Other folders (`/bower_components`, `/dist`, `/node_modules`) will be created just after installation but are ignored by git.
+As you can see the original project (before installation) has just `/src` and `/config` folders. Other folders (`/bower_components`, `/dist`, `/node_modules`) will be created by npm install but are ignored by git.
 
 
 
 
 ## The /src structure
 
-The `/src/` folder contains all your angular files, styles and assets. When you start working with ngStartupp, you can edit all these files adding your logic, images, and more.
+The `/src` folder contains all your angular files, styles and assets. When you start working with ngStartupp, you can edit all these files adding your logic, images, and more.
 
 ```bash
 .
@@ -70,7 +70,7 @@ You should configure you app changing:
 
 1. `package.json` changing the name, description, version and other infos
 2. `bower.json` with new dependencies
-3. `/config/build.config.js` with new dependency files and switch less/sass (choos the best for you)
+3. `/config/build.config.js` with new dependency files and switching less/sass (choose the best for you)
 4. `/config/configuration.js` with reserved credentials for phonegap build and AWS S3 (out of git)
 
 For points 2 and 3 go to *Grunt and Bower* chapter.
@@ -139,7 +139,7 @@ angular.module(
 }]);
 ```
 
-At the other side, when you launch`grunt compile:web` and `grunt compile:mobile` tasks, the lines of code between `// env: build` and `// endenv` will be dropped. So in the example abouve your app will enable $log debugging for build stages, and disable for compile stages.
+At the other side, when you launch`grunt compile:web` and `grunt compile:mobile` tasks, the lines of code between `// env: build` and `// endenv` will be dropped. In the example above your app will enable $log debugging for build stages, and disable for compile stages.
 
 ## Phonegap configuration
 
