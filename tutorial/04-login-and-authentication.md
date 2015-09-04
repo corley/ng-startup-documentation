@@ -49,6 +49,8 @@ function run($rootScope, crAcl, crSession, crRemoteHttp, crIdentity, $state, $lo
 
 }])
 ```
+Vediamo come stiamo attaccando due listener agli eventi `auth:identity:success` e `auth:identity:success` nel primo caso stiamo dicendo all'applicazione di eseguire un redirect verso
+la rotta dashboard in caso di login corretto, nel secondo siamo dicendo di portare l'utente sulla home dopo il logout. E' ovviamente possibile complicare a piacere la logica oppure aggiungere diversi listener.
 
 ## Login Module
 Aggiungiamo un altro modulo alla nostra applicazione che conterrà la pagina di login con la logica di autenticazione, creiamo una struttura come questa
@@ -113,6 +115,9 @@ angular.module( 'ng-startup.signin', ['ui.router.state'])
 }]);
 ```
 Rispettivamente risponderanno alla rotta `/signin` e `/signout` ma solo una dei due necessità di un template, apriamo il file `signin.tpl.html` e creiamo il nostro modulo di login.
+Durante il signin oltre a utilizzare il servizione $auth per esaguire il login, in caso di buona riuscita stiamo eseguendo il broadcasting dell'evento `auth:identity:success` guarda caso lo stesso visto sopra, nell'app.js
+a cui abbiamo attaccato il listener di redirect verso la dashboard.
+
 ```html
 <div class="row">
   <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-lg-offset-6">
