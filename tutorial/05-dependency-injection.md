@@ -36,3 +36,27 @@ Apriamo il file `config/build.config.js` e aggiungiamo nella sezione corretta in
 ```
 
 A questo punto il file è caricato dalla nostra applicazione e possiamo utilizzare il componente all'interno dei nostri moduli.
+
+## App.js
+Per poter utilizzare il modulo all'interno dei nostri moduli è necessario caricarlo attraverso la dependency injection di angular, apriamo quindi il nostro file `app.js` ed aggiungia il nuovo componente.
+
+```javascript
+angular.module('templates-app', []);
+angular.module('templates-common', []);
+angular.module(
+        'ng-startup',
+        [
+            'templates-app',
+            'templates-common',
+            'angulartics',
+            'angulartics.google.analytics',
+            'LocalStorageModule',
+            'ngAnimate',
+            'ngSanitize',
+            'angular-loading-bar',
+            'templates-app',
+            'templates-common',
+            'highcharts-ng',
+            '...',
+        ])
+```
