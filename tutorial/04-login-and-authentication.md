@@ -2,7 +2,7 @@
 
 ## Introduzione
 In questa ultima parte del nostro tutorial vedremo come utilizzare una serie di moduli di terze parti che reputiamo ben supportati e scritti per implementare una soluzione di autentication e di gestione degli accessi.  
-Ci serviremo quindi di una serie di moduli, [sallizer](https://github.com/sahat/satellizer) per il sistema di autenticazione, [crSession](https://github.com/ngutils/cr-session) per la sessione utente e [crAcl](https://github.com/ngutils/cr-acl) per controllare il livello di visibilità dei nostri utenti.
+Ci serviremo quindi di una serie di moduli, [satellizer](https://github.com/sahat/satellizer) per il sistema di autenticazione, [crSession](https://github.com/ngutils/cr-session) per la sessione utente e [crAcl](https://github.com/ngutils/cr-acl) per controllare il livello di visibilità dei nostri utenti.
 In sostanza creeremo un modulo login per effettuare l'accesso e nasconderemo la dashboard ai soli autorizzati.
 
 ## Configuration $auth
