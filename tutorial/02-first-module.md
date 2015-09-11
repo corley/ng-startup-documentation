@@ -1,13 +1,22 @@
-# First Module
+# Creating a module
 
 ## Introduction
-In cominciamo dalla creazione di un nuovo modulo, la dashboard, immaginiamola come un elenco di news sotto la rotta `/dashboard`.  
-La prima cosa da fare è creare una cartella `./tutorial/src/app/dashboard` in modo da isolare tutto il codice relativo a questo modulo
-ordinatamente al suo interno. Questo ci permetterà di lavorare in modo isolato senza rischiare di dimenticarci la collocazione dei files.
+
+The first step is the creation of a new AngularJS module, then inject it into our app. If you watch at `src/app/index.html` and `src/app/app.js`, you can easily understand that the `ng-startup` app run on all the html with the major controller `AppCtrl`.
+
+All modules defined in folder under `src/app/` can be added to the ng-startup application. You can see an example in the `/src/app/home`, thats is the module that manage the home page of our project.
 
 ## Adding a new module
-La struttura delle cartelle sarà simile a quella del modulo di default `home` ma per ora possiamo limitarci ad un solo file `dashboard.js` in cui andremo ad interagire con AngularJs, creando controlli,
-direttive ed un file `dashboard.tpl.html` con il template della nostra pagina.
+
+The goal now is create a new module called **Dashboard**, so create create the void folder `src/app/dashboard`.
+
+When you add a new module, take in mind that all logic and views will be added inside the folder (in this case dashboard).
+Create two files:
+1. dashboard.js that contains the module definition and the logic
+2. dashboard.tpl.html that's the template for the new module.
+
+Your foldering should be like this one:
+
 ```
 .
 ├── app.js
@@ -23,7 +32,8 @@ direttive ed un file `dashboard.tpl.html` con il template della nostra pagina.
     └── page.tpl.html
 ```
 
-Creiamo il nostro primo controller.
+Now we can create the module and ist controller:
+
 ```javascript
 angular.module( 'ng-startup.dashboard', ['ui.router.state', 'cr.remote'])
 .config(function config( $stateProvider ) {
@@ -41,7 +51,7 @@ angular.module( 'ng-startup.dashboard', ['ui.router.state', 'cr.remote'])
 /**
  * Dashboard controller
  */
-.controller( 'DashboardCtrl', ['$scope', '$stateParams'', function DashboardCtrl( $scope, $stateParams) {
+.controller( 'DashboardCtrl', ['$scope', '$stateParams', function DashboardCtrl( $scope, $stateParams) {
     $scope.results = [
         {
             "id": 968849,
@@ -74,7 +84,16 @@ angular.module( 'ng-startup.dashboard', ['ui.router.state', 'cr.remote'])
     ];
 }]);
 ```
-Ricordiamo di aggiungerlo all'interno del file `./tutorial/src/app/app.js`
+
+The logic of oru first module it's very simple:
+* we have a new module called `ng-startup.dashboard`
+* it defines in the .config a routing strategy: When you visit the #/dashboard
+  * it run the `DashBoard` controller
+  * it uses the `dashboard/dashboard.tpl.html` as template
+  * it will inject the compiled view in the `<div ui-view='main'></div>` of our index.html file
+* in the controller there's a fake service that set a list of news
+
+In order to make this module active, add it the main module in `src/app/app.js`:
 ```javascript
 angular.module('templates-app', []);
 angular.module('templates-common', []);
@@ -85,13 +104,15 @@ angular.module(
         'templates-app',
         'templates-common',
         'ui.bootstrap',
-        'ng-startup.dashboard',
+        'ng-startup.dashboard', // add this line
         'ui.router',
         "..."
     ]
 )
 ```
-Come abbiamo scritto all'interno della funzione di configurazione del nostro modulo, `DashboardCtrl` risolve il template `dashboard.tpl.html` il nostro elenco di notizie
+
+Now we can add a template to list the news provided by the controller. Open the src/app/dashboard/dashboard.tpl.html` file and add this code (or your own):
+
 ```
 <div class="well">
   <p>
@@ -110,4 +131,5 @@ Come abbiamo scritto all'interno della funzione di configurazione del nostro mod
   </div>
 </div>
 ```
-Siamo pronti per visitare la rotta /dashboard sul nostro browser e raccogliere i frutti del nostro lavoro
+
+We are ready to visit our first controller! Grunt is wathing changes in `src/` compiling the result in the `dist/build/web`, so visit [http://localhost:8081/#/dashboard](http://localhost:8081/#dashboard) with your browser.
