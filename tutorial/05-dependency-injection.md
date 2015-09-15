@@ -9,7 +9,7 @@ un componente per la costruzione di grafici.
 [Bower](http://bower.io) è un gestore di dipendenze, possiamo andare in console nella radice del nostro progetto ed eseguire questo comando
 
 ```
-$ bower install highcharts-ng
+$ bower install highcharts-ng highcharts
 ```
 
 ## Loading
@@ -30,6 +30,7 @@ Apriamo il file `config/build.config.js` e aggiungiamo nella sezione corretta in
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-loading-bar/build/loading-bar.js',
       'bower_components/angular-ui-utils/modules/route/route.js',
+      'bower_components/highcharts/highcharts.src.js',
       'bower_components/highcharts-ng/dist/highcharts-ng.js',
       '..'
      ]}
