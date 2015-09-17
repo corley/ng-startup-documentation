@@ -1,25 +1,77 @@
-# Authentication and Authorization
+# Add Authentication
 
-## Introduzione
-In questa ultima parte del nostro tutorial vedremo come utilizzare una serie di moduli di terze parti che reputiamo ben supportati e scritti per implementare una soluzione di autentication e di gestione degli accessi.  
-Ci serviremo quindi di una serie di moduli, [satellizer](https://github.com/sahat/satellizer) per il sistema di autenticazione, [crSession](https://github.com/ngutils/cr-session) per la sessione utente e [crAcl](https://github.com/ngutils/cr-acl) per controllare il livello di visibilità dei nostri utenti.
-In sostanza creeremo un modulo login per effettuare l'accesso e nasconderemo la dashboard ai soli autorizzati.
+## Overview
+Image if the Dashboard that we defined before were a protected area where the user can access only after a successful login.
+To support this feature, we'll use [Satellizer](https://github.com/sahat/satellizer) a service to manage authentication,  [crSession](https://github.com/ngutils/cr-session) to store user session, and [crAcl](https://github.com/ngutils/cr-acl) to check the role of the users.
+We're going to create a Signin module to let authorized users to log into the reserved dashboard.
 
-## Configuration $auth
-La prima cosa da fare è configurare `$auth` (satellizer) all'interno dell'`app.js` per comunicarci l'endpoint per eseguire l'autenticazione 
-ed il tipo, nel nostro caso si tratta di Basic Authentication.
+
+
+
+## Acl
+[crAcl](https://github.com/gianarb/cr-acl) is a module available in ngStartup that lets you to define roles and visibility in your application.
+By default is supports 2 (expandables) roles:
+
+* ROLE_GUEST for users not authenticated
+* ROLE_USER for users authenticated
+
+The first step is change the configuration in `src/app/app.js` writing the state for unauthorized roles that try to access to reserved area:
+
+```javascript
+.run(['$rootScope', 'crAcl', 'crSession', 'crRemoteHttp', 'crIdentity', '$state', '$log',
+function run($rootScope, crAcl, crSession, crRemoteHttp, crIdentity, $state, $log) {
+
+    //set default login state for unauth users
+    crAcl.setRedirect("signin");
+
+    //what append on user successful login
+    $rootScope.$on('auth:identity:success', function(event, data) {
+      $state.go("dashboard");
+    });
+
+    //...
+
+}]);
+```
+
+Two interesting thing on code above:
+
+1. all users with no authorizaton that try to access to a protected area will be redirected to the `signin` state
+2. when an event name `auth:identity:success` will be broadcasted (probably after a successful login) the user will be redirected to the `dashboard` state
+
+Now edit the `src/app/dashboard/dashboard.js` file making the dashboard state private. Add ROLE_USER to state definition:
+
+
+```javascript
+angular.module( 'ng-startup.dashboard', ['ui.router.state', 'cr.remote'])
+.config(function config( $stateProvider ) {
+    $stateProvider.state( 'dashboard', {
+        url: '/dashboard',
+        views: {
+            "main": {
+                controller: 'DashboardCtrl',
+                templateUrl: 'dashboard/dashboard.tpl.html'
+            }
+        },
+        data:{ pageTitle: 'Dashboard', is_granted:['ROLE_USER'] }
+    });
+})
+```
+
+Now if you try to go to the dashboard you'll be redirect to a invalid `signin` state. You have to create it.
+
+
+## $auth configuration
+
+The next step is create a signin module, but before we have to config our $auth service provided by Satellizer. This module is very easy to use and helps you to create a simple login service with several providers: from Google to Facebook and of course your own authentication service.
+
+As for News resource, the endpoint that we are using serves a login system on the `http://rest.test.corley.it/login` endpoint. Sending to it a POST request with `username` and `password` in the body, we'll obtain a 200 OK response in case of successful authentication, or a 401 UNAUTHORIZED response otherwise. A valid username is `user1` and a valid password `password1`.
+
+So set $auth method in the `src/app/app.js` file:
 
 ```javascript
 .config(['$urlRouterProvider', '$translateProvider', '$authProvider', 'cfpLoadingBarProvider', 'crRemoteProvider', 'appConf', '$logProvider',
   function myappConf($urlRouterProvider,  $translateProvider, $authProvider, cfpLoadingBarProvider, crRemoteProvider, appConf, $logProvider) {
-
-    //set translation preferences
-    $translateProvider.useStaticFilesLoader({
-        files: [{
-            prefix: 'i18n/',
-            suffix: '.json'
-        }]
-    });
 
     // ....
 
@@ -31,29 +83,11 @@ ed il tipo, nel nostro caso si tratta di Basic Authentication.
 }]);
 ```
 
-Sembre all'interno dell'app.js aggiungiamo qualche linea di codice in grado di spiegare alla nostra app cosa fare in caso di utente non autorizzato 
-oppure in caso di corretta autenticazione.
-```javascript
-.run(['$rootScope', 'crAcl', 'crSession', 'crRemoteHttp', 'crIdentity', '$state', '$log',
-function run($rootScope, crAcl, crSession, crRemoteHttp, crIdentity, $state, $log) {
+In the example above, we are setting the correct endpoint url and the authorization method that will be setted after a successful call to the login endpoint. All $http requests will be firmed with the Basic Auth header.
 
-    //what append on user successful login
-    $rootScope.$on('auth:identity:success', function(event, data) {
-      $state.go("dashboard", {'area': 'test'});
-    });
+## Signin Module
 
-    //what append on user logout
-    $rootScope.$on("auth:purge:success", function(event, data){
-      $state.go("home");
-    });
-
-}])
-```
-Vediamo come stiamo attaccando due listener agli eventi `auth:identity:success` e `auth:identity:success` nel primo caso stiamo dicendo all'applicazione di eseguire un redirect verso
-la rotta dashboard in caso di login corretto, nel secondo siamo dicendo di portare l'utente sulla home dopo il logout. E' ovviamente possibile complicare a piacere la logica oppure aggiungere diversi listener.
-
-## Login Module
-Aggiungiamo un altro modulo alla nostra applicazione che conterrà la pagina di login con la logica di autenticazione, creiamo una struttura come questa
+Now you can create the signin module and add it to the project. Add a folder with two files inside:
 ```
 .
 ├── app.js
@@ -65,7 +99,35 @@ Aggiungiamo un altro modulo alla nostra applicazione che conterrà la pagina di 
     └── signin.tpl.html
 ```
 
-Il andiamo a lavorare a due controller, uno per il login `SigninCtrl` e uno per il logout `SignoutCtrl`, apriamo il file sigin.js
+The `signin.tpl.html` with a simple form:
+
+```html
+<div class="row">
+  <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-lg-offset-6">
+    <div class="well margin_50_0">
+      <form ng-submit="doLogin(username, password)">
+        <div class="form-group">
+          <input type="text" ng-model="username" class="form-control" placeholder="username" required>
+        </div>
+        <div class="form-group">
+          <input type="password" ng-model="password" class="form-control" placeholder="password" required>
+        </div>
+        <p>
+          <button type="submit" class="btn btn-success">Click to sign in</button>
+        </p>
+        <p>
+          <small>
+            Use <i>user1</i> and <i>password1</i> to sign in.
+          </small>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+```
+
+And the `signin.js` with the module and its controllers:
+
 ```javascript
 angular.module( 'ng-startup.signin', ['ui.router.state'])
 .config(function config( $stateProvider ) {
@@ -114,83 +176,30 @@ angular.module( 'ng-startup.signin', ['ui.router.state'])
 
 }]);
 ```
-Rispettivamente risponderanno alla rotta `/signin` e `/signout` ma solo una dei due necessità di un template, apriamo il file `signin.tpl.html` e creiamo il nostro modulo di login.
-Durante il signin oltre a utilizzare il servizione $auth per esaguire il login, in caso di buona riuscita stiamo eseguendo il broadcasting dell'evento `auth:identity:success` guarda caso lo stesso visto sopra, nell'app.js
-a cui abbiamo attaccato il listener di redirect verso la dashboard.
 
-```html
-<div class="row">
-  <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-lg-offset-6">
-    <div class="well margin_50_0">
-      <form ng-submit="doLogin(username, password)">
-        <div class="form-group">
-          <input type="text" ng-model="username" class="form-control" placeholder="username" required>
-        </div>
-        <div class="form-group">
-          <input type="password" ng-model="password" class="form-control" placeholder="password" required>
-        </div>
-        <p>
-          <button type="submit" class="btn btn-success">Click to sign in</button>
-        </p>
-        <p>
-          <small>
-            Use <i>user1</i> and <i>password1</i> to sign in.
-          </small>
-        </p>
-      </form>
-    </div>
-  </div>
-</div>
-```
-Guardatelo attentamente perchè tra l'html si nascondo un paio di funzioni interessanti, in primis la funzione `doLogin` che accetta nome utente e password e si preoccupa di eseguire l'autenticazione.
-A questo punto se siamo stati bravi andando alla pagina `/signin` vedremo il nostro modulo di login, ma la potenza non è nulla senza il controllo, 
-dobbiamo fare in modo che le nostre news diventino inleggibile per chi non è autorizzato.
+There're two new states:
 
-## Acl
-[crAcl](https://github.com/gianarb/cr-acl) è un modo che ci aiuta a gestire le regole dei nostri utenti e decidere cosa far vedere o no della nostra applicazione in base al loro ruolo.
-Di default supporta due tipi di ruolo
+`Signin` that shows a signin form and, in case of successful $auth request, broadcasts the `auth:login:success` event with some data:  a role got by endpoint (in this case ROLE_USER), a provider name, and user's data that will be stored into session. This event will be catched by crIdentity, a module available by default in ngStartup, that will use crSession to store user data and will set the role in crAcl, then will broadcasts the `auth:identity:success`. This event is catched by the $rootScope in `src/app/app.js` that redirects the user to the dashboard state.
 
-* ROLE_GUEST = utente non autenticato
-* ROLE_USER = utente autenticato
+`Signout` that has not a template but just broadcasts the `auth:logout:success`: crIdentity will catch it, destroying user's session and role. Then it will broadcasts the `identity:purge:success` that you can catch in the app.js adding your logic:
 
-ma è possibile configurare i propri ruoli con un sistema gerarchico ed ereditario, per intenderci se volessimo creare un ruolo ROLE_CLIENT per gestire i clienti del nostro e-commerce,
-potremmo partire estendendo ROLE_USER.
 
-Aggiungiamo al nostro `app.js` una particolare configurazione per comunicare a crAcl cosa fare quando intercetta un tentativo di intrusione.
 ```javascript
 .run(['$rootScope', 'crAcl', 'crSession', 'crRemoteHttp', 'crIdentity', '$state', '$log',
 function run($rootScope, crAcl, crSession, crRemoteHttp, crIdentity, $state, $log) {
 
-    //set default login state for unauth users
-    crAcl.setRedirect("signin");
+    // ...
 
-
-
-    //what append on user successful login
-    $rootScope.$on('auth:identity:success', function(event, data) {
-      $state.go("dashboard", {'area': 'test'});
+    //what append on user logout
+    $rootScope.$on("auth:purge:success", function(event, data){
+      $state.go("home");
     });
 
-    //...
+    // ...
 
-}]);
+}])
 ```
 
-E poi configuriamo il nostro `DashboardCtrl` in modo che permetta ai soli autorizzati, quelli che soddisfano la ROLE_USER di accedervi, apriamo `dashboard.js`
-e riconfiguriamo la rotta dashboard aggiungendo `is_granted:['ROLE_USER']`.
-```javascript
-angular.module( 'ng-startup.dashboard', ['ui.router.state', 'cr.remote'])
-.config(function config( $stateProvider ) {
-    $stateProvider.state( 'dashboard', {
-        url: '/dashboard',
-        views: {
-            "main": {
-                controller: 'DashboardCtrl',
-                templateUrl: 'dashboard/dashboard.tpl.html'
-            }
-        },
-        data:{ pageTitle: 'Dashboard', is_granted:['ROLE_USER'] }
-    });
-})
-```
-Ora proviamo ad accedere alla rotta `/dashboard` come utenti non collegati, per essere rimandati alla pagina di login.
+Remember that you **have to add the ng-startup.signin module to the app** in `src/app/app.js` file.
+
+Now your login system is completed, try it!

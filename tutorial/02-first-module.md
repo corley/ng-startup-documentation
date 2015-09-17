@@ -1,6 +1,6 @@
 # Creating a module
 
-## Introduction
+## Overview
 
 The first step is the creation of a new AngularJS module, then inject it into our app. If you watch at `src/app/index.html` and `src/app/app.js`, you can easily understand that the `ng-startup` app run on all the html with the major controller `AppCtrl`.
 
@@ -8,14 +8,14 @@ All modules defined in folder under `src/app/` can be added to the ng-startup ap
 
 ## Adding a new module
 
-The goal now is create a new module called **Dashboard**, so create create the void folder `src/app/dashboard`.
+The goal now is create a new module called **Dashboard**, so create the new folder `src/app/dashboard`.
 
-When you add a new module, take in mind that all logic and views will be added inside the folder (in this case dashboard).
+When you add a new module, take in mind that all logic and views must be added inside the folder (in this case *dashboard*).
 Create two files:
 1. dashboard.js that contains the module definition and the logic
 2. dashboard.tpl.html that's the template for the new module.
 
-Your foldering should be like this one:
+Your folders should be like this one:
 
 ```
 .
@@ -32,7 +32,7 @@ Your foldering should be like this one:
     └── page.tpl.html
 ```
 
-Now we can create the module and ist controller:
+Now we can create the module and its controller:
 
 ```javascript
 angular.module( 'ng-startup.dashboard', ['ui.router.state', 'cr.remote'])
@@ -85,12 +85,12 @@ angular.module( 'ng-startup.dashboard', ['ui.router.state', 'cr.remote'])
 }]);
 ```
 
-The logic of oru first module it's very simple:
+The logic of our first module it's very simple:
 * we have a new module called `ng-startup.dashboard`
-* it defines in the .config a routing strategy: When you visit the #/dashboard
+* it defines in the config a new route strategy: when you visit the #/dashboard
   * it run the `DashBoard` controller
   * it uses the `dashboard/dashboard.tpl.html` as template
-  * it will inject the compiled view in the `<div ui-view='main'></div>` of our index.html file
+  * it will inject the compiled view in the `<div ui-view='main'></div>` element in our index.html file
 * in the controller there's a fake service that set a list of news
 
 In order to make this module active, add it the main module in `src/app/app.js`:
@@ -111,9 +111,9 @@ angular.module(
 )
 ```
 
-Now we can add a template to list the news provided by the controller. Open the src/app/dashboard/dashboard.tpl.html` file and add this code (or your own):
+Now you can add a template to show the news provided by the controller. Open the `src/app/dashboard/dashboard.tpl.html` file and add this code (or your own):
 
-```
+```html
 <div class="well">
   <p>
     <button class="btn" ng-class="{'btn-success': (order == 'timestamp')}" ng-init="order = 'timestamp'" ng-click="order = 'timestamp'">Order by date</button>
