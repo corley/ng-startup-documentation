@@ -21,7 +21,7 @@ A brutal way is using the `crRemoteProvider` in the  `src/app/app.js` file:
  }])
 ```
 
-The best way is using the app configuration. Edit the `src/common/conf/conf.js` file adding your endpoint in the `appConf` constant.
+The best way is using the app configuration. Edit the `/src/common/conf/conf.js` file adding your endpoint in the `appConf` constant.
 ``` javascript
 
 angular.module('ng-startup.appConf', [])
@@ -42,7 +42,7 @@ angular.module('ng-startup.appConf', [])
 ;
 ```
 
-As you can see, the constant is defined twice, because the `devcode` comments will be parsed by Grunt compiling a different configuration for build (under development) and compile (release for production) stages. Edit the endpoint as above, then edit the `src/app/app.js` file:
+As you can see, the constant is defined twice, because the `devcode` comments will be parsed by Grunt compiling a different configuration for build (under development) and compile (release for production) stages. Edit the endpoint as above, then edit the `/src/app/app.js` file:
 
 ```javascript
 .config(['$urlRouterProvider', '$translateProvider', '$authProvider', 'cfpLoadingBarProvider', 'crRemoteProvider', 'appConf', '$logProvider',
@@ -60,7 +60,7 @@ As you can see, the constant is defined twice, because the `devcode` comments wi
 
 
 ## Creating new services
-Now all `crRemote` services will work with the *default* endpoint defined in configuration. We can create a service to work with remote news. Add it to your `src/app/dashboard/dashboard.js` file or whenever you want inside your project:
+Now all `crRemote` services will work with the *default* endpoint defined in configuration. We can create a service to work with remote news. Add it to your `/src/app/dashboard/dashboard.js` file or whenever you want inside your project:
 
 ``` javascript
 .service('NewsRest', ['crRemoteHttp', function(crRemoteHttp){
@@ -76,7 +76,7 @@ This snippet creates a service that works with remote resource *news* on url *en
 * .delete({'id': 10}) (HTTP DELETE /news/10)
 * .patch({'id': 10, {'data': {'title': 'a', 'summary': 'b'}}) (HTTP PATCH /news/10)
 
-Knowing these methods (each of them returns a promise) you can change the DashboardCtrl in `src/app/dashboard/dashboard.js` removing the old list and using the new service:
+Knowing these methods (each of them returns a promise) you can change the DashboardCtrl in `/src/app/dashboard/dashboard.js` removing the old list and using the new service:
 
 ```javascript
 /**

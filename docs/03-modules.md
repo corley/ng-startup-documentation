@@ -1,8 +1,8 @@
 # Modules
 
-## Introduction
+## Overview
 
-In ngStartup you can easily add your code into your application. The app structure helps you to easily define **independent e reusable modules**.
+In ngStartup you can easily add your code into your application. The app structure helps you to easily define **independent and reusable modules**.
 
 
 
@@ -23,13 +23,13 @@ For example, to create a module that manages controllers and views for the home 
     └── app
         └── home
             ├── home.js       // controllers and services
-            ├── home.tpl.html //  a view for a ctrl defined in shopping.js
-            ├── page.tpl.html //  another view for a ctrl defined in shopping.js
+            ├── home.tpl.html //  a view for a ctrl defined in home.js
+            ├── page.tpl.html //  another view for a ctrl defined in home.js
             ├── home.less     //  styles for this module
             └── home.spec.js  //  tests for this module
 ```
 
-The following inforpgrahic shows better the structure of a module:
+The following infographic shows better the structure of a module:
 
 ![module](http://ngstartup.corleycloud.com/assets/images/ngstartup03.png)
 
@@ -38,10 +38,10 @@ The following inforpgrahic shows better the structure of a module:
 You can place your modules in two different folders:
 
 * `/src/app` for main modules with a specific logic and goal (exp: a module to manage news)
-* `/src/common` for reusable modules, (exp: layout components, modules rich of directives)
+* `/src/common` for reusable modules, (exp: layout components, modules rich of directives, helpers)
 
 When you add a new module, probably you would to define controllers, filters and services related to it.
-About **controllers** you can define the routing rules inside the module. In this way your module will be easily injeactable in your app without editing external files (exp the app configuration).
+About **controllers** you can define the routing rules inside the module. In this way your module will be injected in your app without editing external files (exp the app configuration).
 
 ``` javascript
 angular.module( 'ng-startup.home', ['ui.router.state'])
@@ -96,9 +96,8 @@ angular.module(
 
 
 
-### Layout views
 ## Routing
-In the example above we defined in the `.config` the rules for routing. In this way all calls to `/home` will be managed by the HomeCtrl with the view homte.tpl.html, and all urls like `/page/about-us` will be managed by PageCtrl with the vide page.tpl.html. Thanks to [ui-router](http://angular-ui.github.io/ui-router/site/) you can set your routes in a simple way. You have to define a state (such a name for the route) that must be unique in the app. When you create your module, remember that you can set different states with route associated that will join a controller and his view:
+In the example above we defined in the `.config` the rules for routing. In this way all calls to `/home` will be managed by the HomeCtrl with the view home.tpl.html, and all urls like `/page/about-us` will be managed by PageCtrl with the vide page.tpl.html. Thanks to [ui-router](http://angular-ui.github.io/ui-router/site/) you can set your routes in a simple way. You have to define a state (such a name for the route) that must be unique in the app. When you create your module, remember that you can set different states with route associated that will join a controller and his view:
 
 ``` javascript
 //...
@@ -145,8 +144,8 @@ When you pass params to the controller, you should inject $stateParams and $stat
 .controller('SearchArchiveCtrl', ['$scope', '$state', '$stateParams', function($scope, $state, $stateParams) {
 
   console.log($state.params.id); // 123
-  console.log( $stateParams.id); // 123
-    if( $stateParams.id == 100) {
+  console.log($stateParams.id);  // 123
+  if( $stateParams.id == 100) {
     $state.go('search');
     // redirect to state 'search' (url #/search)
   }
@@ -164,7 +163,7 @@ When you pass params to the controller, you should inject $stateParams and $stat
 
 ### Views
 
-As wrote above, angular will match an url joining the correct controller and view. A view is just an html template with own $scope:
+The router in ngStartup will match an url joining the correct controller and view. A view is just an html template with own $scope:
 
 ``` html
 <div>
@@ -191,7 +190,7 @@ To use a double-column layout, you have to do something like that:
 <body>
   <div class="container">
     <div class="row">
-      <div ui-view="lef"  class="col-lg-3" ></div>
+      <div ui-view="left" class="col-lg-3" ></div>
       <div ui-view="main" class="col-lg-9 fading-view" ></div>
   </div>
 </body>
@@ -223,10 +222,10 @@ and in your modules:
 
 ### Less & Sass
 
-When the app is build (both for development or production stages) all `.less` and `.scss` will be compiled to product the `.css` the application.
+When you build the app (both for development or production stages) all `.less` and `.scss` are compiled to create the definitive `.css`.
 In `/src/app/less/` and `/src/app/sass/` folders you can find css scripts for your application. But if you want add specific styles for a module, just add less and scss files into the module folder.
 
-A less example:
+A less example of `/src/app/home/home.less`:
 
 ``` css
 @home-color: #000;
@@ -239,7 +238,7 @@ A less example:
 ## Tests
 
 To write tests for your module, create `*.spec.js` into module folder.
-**All tests defined will be launched at build and compile tasks**, so you'll be sure that your application is ready to be released.
+**All tests defined will be launched at build and compile tasks**, so are sure that your application is ready to be released.
 
 An example of stupid test:
 

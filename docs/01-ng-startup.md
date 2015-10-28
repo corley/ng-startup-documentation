@@ -1,27 +1,19 @@
 # ngStartup
 
-## Introduction
+## Overview
 
-ngStartup is a project for development of robust single page applications with **AngularJS 1.3.x and other modern tools**.
+ngStartup is a project for development of robust single page applications with **AngularJS 1.4.x and other modern tools**.
 
 > You can think about ngStartup as
 > "a complete starting point for your apps".
 
-ngStartup provides a `single page application structure` (SPA), where you have a single html file (the index.html) with `ng-app` initialized on the `<html>` tag.
-Your controllers will be injected in the body working with easy to define routes.
-
-Thanks to tools such as `Bower` & `GruntJS` you can work very quickly with ngStartup: you can define, download and integrate external components and libraries with Bower, and Grunt will compile your app both for web and mobile releases.
-
-### The flow: you code, Grunt compiles
-
-![intro](http://ngstartup.corleycloud.com/assets/images/ngstartup01.png)
-
 ## Installation
-You can clone [ng-startup repository](https://github.com/corley/ng-startup) from github
+Clone [ng-startup repository](https://github.com/corley/ng-startup) from github or use our [builder](http://build.ngstartup.corleycloud.com).
 ``` bash
-git clone git@github.com:corley/ng-startup.git
-cd ng-startup
-npm install
+$ sudo npm -g install grunt-cli karma bower
+$ git clone git@github.com:corley/ng-startup.git
+$ cd ng-startup
+$ npm install
 ```
 Npm will install nodejs by package.json then bower dependencies (we'll talk about that later.)
 The installation is completed.
@@ -29,22 +21,19 @@ The installation is completed.
 ## Getting Started
 After installation run:
 ``` bash
-grunt watch:web
+$ grunt watch
 ```
 ngStartup (thanks to Grunt) compiles your app creating a development version that you can visit on `http://127.0.0.1:8081`.
 
-### What happens?
-The flow is very simple:
-
-1. your code is under `/src`. Here you find the index.html and your angular files
-2. grunt prepares the folder `/dist/build/web`
-3. grunt parse javascript files, views, assets and less/sas under `/src` and compile & move them to `/dist/build/web`
-4. grunt copy bower dependecies (js and css) and pastes them in `/dist/build/web`
-5. grunt run a local server that points to `/dist/build/web` so you can visit the app to `http://127.0.0.1:8081`
-
-> Remember that you work under `/src` and your app (compiled in development stage) is under `/dist/build/web`
 
 ### The Single Page Application
+
+
+ngStartup provides a `single page application structure` (SPA), where you have a single html file (the index.html) with `ng-app` initialized on the `<html>` tag.
+Your controllers will be injected in the body working with easy to define routes.
+
+Thanks to tools such as `Bower` & `GruntJS` you can work very quickly with ngStartup: you can define, download and integrate external components and libraries with Bower, and Grunt will compile your app both for web and mobile releases.
+
 
 As single page application, you have just a html file. The `/src/index.html` it's similar to this one:
 ``` html
@@ -103,25 +92,42 @@ It's very easy: the module work on route `home`: it means that if somebody visit
 
 
 
+### What happens?
+The flow is very simple:
+
+1. your code is under `/src`. Here you find the index.html and your angular files
+2. grunt prepares the folder `/dist/build/web`
+3. grunt parse javascript files, views, assets and less/sass under `/src` and compile & move them to `/dist/build/web`
+4. grunt copy bower dependecies (js and css) and pastes them in `/dist/build/web`
+5. grunt starts a local server that points to `/dist/build/web` so you can visit the app on `http://127.0.0.1:8081`
+
+> Remember that you work under `/src` and your app (compiled in development stage) is under `/dist/build/web`
+
+
+
+
+
+
 ## How to develop with ngStartup
 
 When you are in development phase, edit files in  `/src` and run one of these commands:
 
 ``` bash
-grunt build:web # it creates the web version in /dist/build/web (not minified or compressed) and run tests
-grunt build:mobile # it creates the phonegap version in /dist/build/mobile (not min. or compressed) and run test
+$ grunt build:web # it creates the web version in /dist/build/web (not minified or compressed) and run tests
+$ grunt build:mobile # it creates the phonegap version in /dist/build/mobile (not min. or compressed) and run test
+
 # or
-grunt watch:web # it creates the /dist/build/web, starts the local server and watches changes in /src re-building dist at any change, useful while coding
-grunt watch:mobile # the same of above but for mobile version
+
+grunt watch # it creates the /dist/build/web, starts the local server and watches changes in /src re-building dist at any change, useful while coding
 ```
 
-The app created in '/dist' **is debuggable because it is not concaenated, compressed or minified**.
+The app created in '/dist' **is debuggable because it is not concatenated, compressed or minified**.
 
 ## How to release for production
 When you're ready, you can create the minified and compressed version
 ``` bash
-grunt compile:web # it compiles in `/dist/compile/web`
-grunt compile:mobile # it compiles in `/dist/compile/mobile`
+$ grunt compile:web # it compiles in `/dist/compile/web`
+$ grunt compile:mobile # it compiles in `/dist/compile/mobile`
 ```
 
 Now you can try in on `http://127.0.01:8081` or deploy the code to your server.

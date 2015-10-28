@@ -1,8 +1,8 @@
 # Cordova/Phonegap
 
-## Introduction
+## Overview
 
-[Cordova](https://cordova.apache.org/) is a set of device APIs that allow a mobile app developer to access native device function such as the camera or accelerometer from JavaScript. Combined with a UI framework such as
+[Cordova](https://cordova.apache.org/) is a set of device APIs that allows mobile developers to access native device function such as the camera or accelerometer from JavaScript. Combined with a UI framework such as
 jQuery Mobile or Dojo Mobile or Sencha Touch, this allows a smartphone app to be developed with just HTML, CSS, and JavaScript.
 
 Angular is wrote in Javascript and we can use it to build Mobile Application. ngStartup help you to write and compile it!
@@ -10,7 +10,7 @@ Angular is wrote in Javascript and we can use it to build Mobile Application. ng
 ## Coding with ngCordova
 
 ## Configuration
-`config.xml` is the cordova manifest, this tool reads it and compile your application for different OS: Android, Windows 8, iOS..
+`dist/phonegap.config.xml` is the cordova manifest, this tool reads it and compile your application for different OS: Android, Windows 8, iOS..
 Open this file and replace few custom configuration:
 
 **Personal information**
@@ -60,12 +60,12 @@ Open this file and replace few custom configuration:
 ```
 [See official documentation](http://cordova.apache.org/docs/en/5.0.0/config_ref_index.md.html#The%20config.xml%20File)
 
-Another important service that we use to compile the application is [PhoneGapBuid](https://build.phonegap.com/). Its configurations are into the configuration.json file;
+Another important service that we use to compile the application is [PhoneGapBuid](https://build.phonegap.com/). Please edit `/config/secret.json` file adding your credentials in order to upload and compile the app from your desktop;
 ```json
 {
   "phonegap": {
-      "appId": "",
-      "token": "",
+      "appId": "", //required
+      "token": "", //required
        "keys": {
           "ios": { "password": "" },
           "android": { "key_pw": "", "keystore_pw": "" }
@@ -78,36 +78,37 @@ Another important service that we use to compile the application is [PhoneGapBui
 There are two important tasks to manage your mobile project:
 
 ```bash
-grunt phonegapBuild
+$ grunt build:mobile
 ```
-You this command to build a development version of your mobile app, it creates a `build` directory with your codebase.
+It builds a development version of your mobile app in `/dist/build/mobile`, then upload it to your Phonegap Build account, waits for building, then download it into `/dist` and install it on your Android device (if connected on usb, you can alwasy download the apps built on http:build.phonegap.com).
 
 
 
 ```bash
-grunt phonegapCompile
+$ grunt compile:mobile
 ```
-You this command to build a production version of your mobile app, it creates a `dir` directory with your codebase.
-The code is minified, compiled and concat. It is ready to go in production.
+It compile the ready-for-production version of your mobile app in `/dist/compile/mobile`, then upload it to your Phonegap Build account, waits for building, then download it into `/dist` and install it on your Android device (if connected on usb, you can alwasy download the apps built on http:build.phonegap.com).
 
 ![phonegap](http://ngstartup.corleycloud.com/assets/images/ngstartup10.png)
 
-Both build and compile::
+Remember thet both build and compile:
 
-* Will push your codebase into the PhoneGap Build service and start compilation
-* Will wait that compilation to end.
-* Will download the Android version and if your smartphone is connected at PC will install it on device.
+* maintain lines of codes betweeb // devcode: mobile and // enddev comments
+* push your app code into the PhoneGap Build service starting compilation
+* wait for compilation ending
+* download the Android version and if your smartphone is connected at PC will install it on device.
 
 ```bash
-grunt shell:androidLog
+$ grunt shell:androidLog
 ```
+
 This command tail android device log if it is connected at PC
 
 ## Assets/Fonts/Images/Icons
 ```
 ng-startup/src/assets/phonegap
 .
-├── icon                // incons directory
+├── icon                // icons directory
 │   └── android         // specific for android
 ├── icon.png
 └── screen              // splashscreen directory
@@ -115,7 +116,7 @@ ng-startup/src/assets/phonegap
     ├── ios             // specific for ios
     └── splash.png
 ```
-`src/assets/phonegap` contains a lot of images, splashscreen and assets about your mobile application, they are the default phonegap assets, you can change them to customize your application.
+`src/assets/phonegap` contains a lot of images, splashscreen and assets about your mobile application, they are the default Phonegap assets, you can change them to customize your application.
 
 ## Dependencies
 Your mobile application requires a way to include javascript/css files into the index.html, we use `build.config.js` to describe all

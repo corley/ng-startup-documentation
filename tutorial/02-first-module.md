@@ -2,13 +2,13 @@
 
 ## Overview
 
-The first step is the creation of a new AngularJS module, then inject it into our app. If you watch at `src/app/index.html` and `src/app/app.js`, you can easily understand that the `ng-startup` app run on all the html with the major controller `AppCtrl`.
+The first step is the creation of a new AngularJS module, then inject it into our app. If you watch at `/src/app/index.html` and `src/app/app.js`, you can easily understand that the `ng-startup` app run on all the html with the major controller `AppCtrl`.
 
-All modules defined in folder under `src/app/` can be added to the ng-startup application. You can see an example in the `/src/app/home`, thats is the module that manage the home page of our project.
+All modules defined in folder under `/src/app/` can be added to the ng-startup application. You can see an example in the `/src/app/home`, thats is the module that manage the home page of our project.
 
 ## Adding a new module
 
-The goal now is create a new module called **Dashboard**, so create the new folder `src/app/dashboard`.
+The goal now is create a new module called **Dashboard**, so create the new folder `/src/app/dashboard`.
 
 When you add a new module, take in mind that all logic and views must be added inside the folder (in this case *dashboard*).
 Create two files:
@@ -89,11 +89,11 @@ The logic of our first module it's very simple:
 * we have a new module called `ng-startup.dashboard`
 * it defines in the config a new route strategy: when you visit the #/dashboard
   * it run the `DashBoard` controller
-  * it uses the `dashboard/dashboard.tpl.html` as template
+  * it uses the `/src/app/dashboard/dashboard.tpl.html` as template
   * it will inject the compiled view in the `<div ui-view='main'></div>` element in our index.html file
 * in the controller there's a fake service that set a list of news
 
-In order to make this module active, add it the main module in `src/app/app.js`:
+In order to make this module active, add it the main module in `/src/app/app.js`:
 ```javascript
 angular.module('templates-app', []);
 angular.module('templates-common', []);
@@ -111,7 +111,7 @@ angular.module(
 )
 ```
 
-Now you can add a template to show the news provided by the controller. Open the `src/app/dashboard/dashboard.tpl.html` file and add this code (or your own):
+Now you can add a template to show the news provided by the controller. Open the `/src/app/dashboard/dashboard.tpl.html` file and add this code (or your own):
 
 ```html
 <div class="well">
@@ -132,4 +132,4 @@ Now you can add a template to show the news provided by the controller. Open the
 </div>
 ```
 
-We are ready to visit our first controller! Grunt is wathing changes in `src/` compiling the result in the `dist/build/web`, so visit [http://localhost:8081/#/dashboard](http://localhost:8081/#dashboard) with your browser.
+We are ready to visit our first controller! Grunt is wathing changes in `/src` compiling the result in the `/dist/build/web`, so visit [http://localhost:8081/#/dashboard](http://localhost:8081/#dashboard) with your browser.

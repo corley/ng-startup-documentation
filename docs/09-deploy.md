@@ -1,24 +1,23 @@
 # Deploy
 
-## Introduction
+## Overview
 
-ngStartup follows all steps of your development, the deploy is the last important task to move your code in production.
+ngStartup follows all steps of your development, the deploy is the last important task that moves your code to production.
 
 ![compiling](http://ngstartup.corleycloud.com/assets/images/ngstartup09.png)
 
 
 ## Prepare for production
 ```bash
-grunt compile
+$ grunt compile:web
+$ grunt compile:mobile
 ```
-This command prepares `bin` directory, it contains your code ready to go in production. It is
+This commands prepare `/dist/compile/web` and `/dist/compile/mobile` directories. The process:
 
-Javascript files are
-* concat
-* minified
-* compressed
+* maintains lines of code between *devcode: compile*, *devcode: web* or *devcode: mobile* comments
+* creates only one js file (named with project name and version) with all javascript (externals libraries and your angular files) miniefied and compressed
+* creates only one js file (named with project name and version) with css compiled and compressed
 
-SASS and LESS files are compiled and they are concat and minify with all other CSS files.
 
 ```
 bin/
@@ -27,25 +26,19 @@ bin/
 │   ├── images                  // images direcotry
 │   ├── ng-startup-0.0.2.css    // minified, concat and compressed css
 │   ├── ng-startup-0.0.2.js     // minified, concat and compressed js
-│   ├── phonegap                // phonegap assets
-│   └── README.md               // Description file
-├── i18n                        // translation
+│   └── phonegap                // phonegap assets
+├── i18n                        // translations
 │   └── en_EN.json
-└── index.html                  // entry point
+└── index.html                  // the SPA index
 ```
 This is an example of code ready to production.
-`bin/assets/ng-startup-0.0.2.css` is the result of compression and concat of all your style files.  
-Same stuff for `bin/assets/ng-startup-0.0.2.js`, it contains all javascript files compiled and minified.
 
 `0.0.2` is the current version of your application, this value is stored into the `package.json` under the key `version`.
 
 ## S3
-[S3](https://aws.amazon.com/s3/?nc1=h_ls) provides developers and IT teams with secure, durable, highly-scalable object storage. Amazon S3 is easy to use, with a simple web services interface to store and retrieve any amount of data from anywhere on the web.
-```
-grunt s3
-```
-If a task that push bin directory into an AWS s3 bucket. You can configure it into the `configuration.json` file.
+[S3](https://aws.amazon.com/s3) provides to developers and IT teams a secure, durable, highly-scalable object storage. Amazon S3 is easy to use, with a simple web services interface to store and retrieve any amount of data from anywhere on the web. It can used also to host a static website with own domain url. (For example the ng-startup documentation website is hosted on S3).
 
+To upload the compiled version of the app to S3, edit the `/config/secret.json` file with your AWS keys, bucket name and region:
 ```
 {
   "aws": {
@@ -55,4 +48,10 @@ If a task that push bin directory into an AWS s3 bucket. You can configure it in
       "region": "eu-west-1" // Ireland
   }
 }
+```
+
+then run:
+
+```
+grunt s3
 ```

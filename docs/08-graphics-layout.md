@@ -1,16 +1,16 @@
 # Graphics and layout
 
-## Introduction
+## Overview
 
-ngStartup help you to create modern and responsive web and mobile apps. To do that, it includes some external libraries and tools, from Bootstrap to Font Awesome, to stunning Loading bars to scripting tools such as Less and Saas. Configure and use what's the best for you.
+ngStartup helps you to create modern and responsive web and mobile apps. To do that, it includes some external libraries and tools, from Bootstrap to Font Awesome, from stunning Loading bars to scripting tools such as Less and Saas. Configure and use what's the best for you.
 
 ## Bootstrap and Font Awesome
 ngStartup uses [Bootstrap 3.x](http://getbootstrap.com/) and [Font Awesome 4.x](https://fortawesome.github.io/Font-Awesome/) to let you to create high quality and responsive web applications. Of course, if you prefer, you can remove this dependencies from `bower.json` and you app.
 
 ### Bootstrap
-Thanks to Bootstrap, you have a lot of difference html, css and js components and a powerful and responsive grid system. You can find all documentation about it on [Bootstrap webiste](http://getbootstrap.com/).
+Thanks to Bootstrap, you have a lot of different html, css and js components and a powerful and responsive grid system. You can find all documentation about it on [Bootstrap webiste](http://getbootstrap.com/).
 
-However, as you know, javascript plugins of Bootstrap are writte with jQuery. Thanks to another dependecy injected in the app (`UI Bootstrap`) you can use Bootstrap's plugins directly with Angular.
+However, as you know, javascript plugins of Bootstrap are written with jQuery. Thanks to another dependency injected in the app (`UI Bootstrap`) you can use Bootstrap's plugins directly with Angular.
 
 Here an example of the usage of programmable alerts:
 
@@ -42,7 +42,7 @@ Please refer to official [documentation](http://angular-ui.github.io/bootstrap/)
 
 
 ### Font Awesome
-Thanks to Font Awesome you have over 400 scalable vector icons ready to be used in you application:
+Thanks to Font Awesome you have over 400 scalable vector icons ready to be used in your application:
 
 ``` html
 <i class="fa fa-plus"></i>
@@ -52,9 +52,9 @@ Please refer to official [documentation](https://fortawesome.github.io/Font-Awes
 
 
 ## Sass/Less supports
-ngStartup supports fantastic tool for scripteable css such as Less and SaaS. These tools help you to manage better your styles and quickly changes colors, dimensions, font and box values along the whole application.
+ngStartup supports fantastic tools for scripteable css such as Less and SaaS. These tools help you to manage better your styles and quickly changes colors, dimensions, font and box values along the whole application.
 
-Bootstrap supports both Less and SaaS, so you can choose the best for you when start a new project. **By default, ngStartup uses Less compiler to create .css files**.
+Bootstrap supports both Less and SaaS, so choose the best for you when start a new project. **By default, ngStartup uses Less compiler to create .css files**.
 
 ### /src/less/base.less (and /src/saas/base.scss)
 This file contains basic styles definitions and some helper classes. What the chapter `Helper classes and CSS tricks` below for more info. We suggest to don't edit this file, but of course you can do that fitting your needs.
@@ -77,33 +77,36 @@ Remember that all `.less` and `.scss` files in `/src/app/` and `/src/common/` fi
 If you had added a file to a module, you don't need to specify where is it. Grunt will compile it.
 
 ### External .less and .scss files
-Instead, if you have to add a `.less` or `.scss` file from an external dependecy, for example from **bower_components**,  then **you have to add it to `/build.config.js` in project root.
+Instead, if you have to add a `.less` or `.scss` file from an external dependency, for example from **bower_components**,  then **you have to add it to `/build.config.js` in project root.
 
-It contains all lists of files useb by the application to produce the definitive app ready for testing and production. Add your own file to the list:
+It contains all lists of files used by the application to produce the definitive app ready for testing and production. Add your own file to the list:
 
+
+
+### Switching Less and SaaS
+Edit the head of `/config/build.config.js` changin the key `css_parse` from `less` to `sass`.
 
 ## Css Tricks
 
-The `/src/less/base.less` file adds some css classes and tricks that help you with html development.
+The `/src/less/base.less` file adds some css classes and tricks.
 
 ### Margin and padding classes.
 Several classes are available with this sytax:
 
 ``` css
-.margin_5       // 5px margin on all sides
-.margin_5_0     // 5px margin on top and bottom, 0 on left and right
-.margin_5_0_0   // 5px margin only on top, 0 on other sides
-.margin_x_5_x_x // 5px margin on the right, other sides inherited
+.margin-5       // 5px margin on all sides
+.margin-5-0-0-0 // 5px margin only on top, 0 on other sides
+.margin-x-5-x-x // 5px margin on the right, other sides inherited
 // etc etc
 ```
 
-All these classes are fomr 5 to 100 and available also for padding, for example `padding_x_x_x_75 (75px padding on the left).
+All these classes are from 5 to 200 and available **also for padding**, for example `padding-x-x-x-75 (75px padding on the left).
 
 ### Other tricks
 Following are also available:
 
 ``` css
-.nocursor     // disable curson on a, button or other element
+.no-cursor     // disable curson on a, button or other element
 .text-white   // color #fff
 .bg-white     // background-color #fff
 .text-black   // color #000
@@ -203,8 +206,8 @@ The **spinner**  and **bar** styles are defined in the loading-bar css, but you 
 ### Spinner directive
 Thanks to the `crLoading` module that works with the `angular-loading-bar` it's available a directive that you can use on button and form. That directive:
 
-* if used on a button, disable it after user click and show a spinner inside the button (for at least 300ms and untile the $http request is terminated)
-* if used on a form, disable submit buttons after submit showing the spinner as for the button above
+* if used on a button, disable it after user click and show a spinner inside the button (for at least 300ms and until the $http request ends)
+* if used on a form, disable submit buttons after the submit action showing the spinner as for the button above
 
 
 
@@ -221,14 +224,14 @@ It's very easy to use:
 </form>
 ```
 
-You can edit the class of the <span element that will be injected into the button (by default uses a spinner by Font Awesome)
+You can edit the class of the <span> element that will be injected into the button (by default uses a spinner by Font Awesome)
 
 ``` javascript
 .config(["crLoadingProvider", function(crLoadingProvider){
   crLoadingProvider.setClickSpinnerClass("my custom class");
 });
 ```
-Please read official [documentation](https://github.com/ngutils/cr-loading) for crLoading usage.
+Please read official [documentation](https://github.com/ngutils/cr-loading) about crLoading usage.
 
 ## Animations
 ngStartup defines in `/src/less/base.less` some classes that you can use in your views to activate animations during route changes and ng-repeat, ng-show and ng-hide events.
@@ -244,7 +247,7 @@ For **fading** animations:
 <div ui-view="main" class="fading-view" ></div>
 ```
 
-For **slide-out** animations
+For **slide-out** animations:
 
 ``` html
 <!-- in your views -->
@@ -350,4 +353,4 @@ This is the structure:
 
 ```
 
-Assets are atuomatically moved by Grunt to bin and build folders during compiling.
+Assets are automatically moved by Grunt to `dist` folders during building and compiling.

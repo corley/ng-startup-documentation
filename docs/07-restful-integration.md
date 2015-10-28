@@ -1,13 +1,13 @@
 # REST resources
 
-## Introduction
+## Overview
 
-Web and mobile apps usually work with remote resources (webservices and REST endpoints). Angular give you some great tool make http calls, but we have add other modules so you can choos ethe best for you.
+Web and mobile apps usually work with remote resources (webservices and REST endpoints). Angular gives you some great tool make HTTP calls, but we have add other modules so you can choose the best for you.
 
 ## $http
 Of course you can use $http, a module by Angular to make HTTP calls to a specific endpoint.
 
-Remember that cfpLoadingBar and crLoading work with $http in order to show spinners and loading bars. So any tool based on $http will activate these modules enhancing your application.
+Remember that cfpLoadingBar and crLoading work with $http in order to show spinners and loading bars. So any tool based on $http will activate these modules.
 
 Please read official [documentation](https://docs.angularjs.org/api/ng/service/$http) for $http.
 
@@ -45,7 +45,7 @@ ngUtile includes [CrRemote](https://github.com/ngutils/cr-remote), a module base
 })
 ```
 
-### Simpe usage
+### Simple usage
 
 You can user directly crRemote to make HTTP requests.
 
@@ -77,8 +77,8 @@ You can user directly crRemote to make HTTP requests.
 });
 ```
 
-You can use get post put patch and delete methods that return a promise.
-Successful callback **return by default an object** that contains data (body response), headers() (function that return headers) and status (http status code, exp 200);
+You can use GET POST PUT PATCH and delete methods that return a promise.
+Successful callbacks **return by default an object** that contains data (body response), headers() (function that return headers) and status (http status code, exp 200);
 
 ### Create injeactable modules
 
